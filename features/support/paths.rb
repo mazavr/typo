@@ -17,7 +17,8 @@ module NavigationHelpers
       '/'
     when /^the new article page$/
       '/admin/content/new'
-
+    when /^the article_(.+) edit page$/
+      'admin/content/edit/' + Article.find($1).id.to_s
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
