@@ -86,7 +86,7 @@ When /^(?:|I )follow "([^"]*)"$/ do |link|
   click_link(link)
 end
 
-When /^I fill in "(.+)" with the (.+) article (.+)$/ do |field, article_permalink, article_field_name|
+When /^I fill in "(.+)" with the article_(.+) (.+)$/ do |field, article_id, article_field_name|
 end
 
 When /^(?:|I )fill in "([^"]*)" with "([^"]*)"$/ do |field, value|
