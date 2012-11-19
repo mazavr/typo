@@ -630,5 +630,30 @@ describe Article do
     end
 
   end
+
+  describe "merged with another article" do
+    before do
+      @first_article = Factory(:article, :body => "First article body", :comments => [])
+      @first_article.comments << Factory(:comment, :article => @first_article)
+
+      @second_article = Factory(:article, :body => "Second article body", :comments => [])
+      @second_article.comments << Factory(:comment, :article => @second_article)
+
+      @first_article.merge_with(@second_article.id)
+    end
+    context "first article" do
+      it "should concat body of the second" do
+        @first_article.body.should be == "First article bodySecond article body"
+      end
+      it "should have comments from second article" do
+        @first_article.comments.length.should be == 2
+      end
+    end
+    context "second article" do
+      it "should be deleted" do
+        expect { Article.find(@second_article.id) }.to raise_error
+      end
+    end
+  end
 end
 

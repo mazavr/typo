@@ -6,13 +6,13 @@ Feature: Merge two articles
   Background:
     Given the blog is set up
     And I am logged into the admin panel
-    And I have the article_1 created with content "First article content"
-    And I have the article_2 created with content "Second article content"
+    And I have "first one" article created with content "First article content"
+    And I have "second one" article created with content "Second article content"
 
   Scenario: Successfully merge two articles
-    Given I am on the article_1 edit page
+    Given I am on "first one" article edit page
     Then I should see "Merge"
-    When I fill in "merge_with" with the article_2 id
+    When I fill in "merge_with" with "second one" article id
     And I press "Merge"
     Then I should be on the article_1 edit page
     And I should see "First article content"

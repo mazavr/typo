@@ -55,9 +55,9 @@ And /^I am logged into the admin panel$/ do
   end
 end
 
-And /^I have the article_(.+) created with content "(.+)"$/ do |article_id, article_content|
+And /^I have "(.+)" article created with content "(.+)"$/ do |article_title, article_content|
   user = User.first
-  article = Article.create!(:title => "article #{article_id} title", :id => article_id, :user => user, :body => article_content)
+  article = Article.create!(:title => article_title, :user => user, :body => article_content)
 end
 
 # Single-line step scoper
@@ -86,7 +86,7 @@ When /^(?:|I )follow "([^"]*)"$/ do |link|
   click_link(link)
 end
 
-When /^I fill in "(.+)" with the article_(.+) (.+)$/ do |field, article_id, article_field_name|
+When /^I fill in "(.+)" with "(.+)" article (.+)$/ do |field, article_title, article_field_name|
 end
 
 When /^(?:|I )fill in "([^"]*)" with "([^"]*)"$/ do |field, value|
