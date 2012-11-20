@@ -5,9 +5,11 @@
 
 <% end %>
 
-<h3>Merge articles</h3>
-<%= form_tag(admin_content_merge_with_path()) do %>
-    <input type="hidden" name="id" value="<%= @article.id %>" />
-   <input type="text" name="merge_with" />
- <input type="submit" value="Merge With This Article" />
+<% if current_user.admin? %>
+    <h3>Merge articles</h3>
+    <%= form_tag(admin_content_merge_with_path()) do %>
+        <input type="hidden" name="id" value="<%= @article.id %>" />
+       <input type="text" name="merge_with" />
+     <input type="submit" value="Merge With This Article" />
+    <% end %>
 <% end %>

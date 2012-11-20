@@ -116,9 +116,7 @@ class Admin::ContentController < Admin::BaseController
   def merge_with
     @article = Article.find(params[:id])
     @article.merge_with params[:merge_with]
-    #render '/admin/shared/edit'
     redirect_to :action => 'edit', :id => params[:id]
-    #redirect_back_or_default "/"
   end
 
   protected
