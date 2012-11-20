@@ -633,26 +633,34 @@ describe Article do
 
   describe "merged with another article" do
     before do
-      @first_article = Factory(:article, :body => "First article body", :comments => [])
-      @first_article.comments << Factory(:comment, :article => @first_article)
+      @first_article = Factory.create(:article, :body => "First article body", :comments => [])
+      @first_article.comments << Factory.create(:comment, :article => @first_article)
 
-      @second_article = Factory(:article, :body => "Second article body", :comments => [])
-      @second_article.comments << Factory(:comment, :article => @second_article)
+      @second_article = Factory.create(:article, :body => "Second article body", :comments => [])
+      @second_article.comments << Factory.create(:comment, :article => @second_article)
+
+      @third_article = Factory.create(:article, :body => "Third article body", :comments => [])
 
       @first_article.merge_with(@second_article.id)
     end
-    context "first article" do
+    describe "first article" do
       it "should concat body of the second" do
-        @first_article.body.should be == "First article bodySecond article body"
+        Article.find(@first_article.id).body.should be == "First article bodySecond article body"
       end
       it "should have comments from second article" do
-        @first_article.comments.length.should be == 2
+        Article.find(@first_article.id).comments.length.should be == 2
       end
     end
-    context "second article" do
+    describe "second article" do
       it "should be deleted" do
         expect { Article.find(@second_article.id) }.to raise_error
       end
+    end
+    it "should be automergable" do
+      expect { @third_article.merge_with(@third_article.id) }.to_not raise_error
+    end
+    it "should not rise an error on not existing article" do
+      expect { @third_article.merge_with(123) }.to_not raise_error
     end
   end
 end

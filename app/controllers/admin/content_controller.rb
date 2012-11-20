@@ -113,6 +113,14 @@ class Admin::ContentController < Admin::BaseController
     render :text => nil
   end
 
+  def merge_with
+    @article = Article.find(params[:id])
+    @article.merge_with params[:merge_with]
+    #render '/admin/shared/edit'
+    redirect_to :action => 'edit', :id => params[:id]
+    #redirect_back_or_default "/"
+  end
+
   protected
 
   def get_fresh_or_existing_draft_for_article
@@ -240,4 +248,6 @@ class Admin::ContentController < Admin::BaseController
   def setup_resources
     @resources = Resource.by_created_at
   end
+
+
 end

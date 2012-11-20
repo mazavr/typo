@@ -11,9 +11,9 @@ Feature: Merge two articles
 
   Scenario: Successfully merge two articles
     Given I am on "first one" article edit page
-    Then I should see "Merge"
+    Then I should see "Merge articles"
     When I fill in "merge_with" with "second one" article id
-    And I press "Merge"
-    Then I should be on the article_1 edit page
+    And I press "Merge With This Article"
+    Then I should be on "first one" article edit page
     And I should see "First article content"
     And I should see "Second article content"

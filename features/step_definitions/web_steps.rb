@@ -87,6 +87,8 @@ When /^(?:|I )follow "([^"]*)"$/ do |link|
 end
 
 When /^I fill in "(.+)" with "(.+)" article (.+)$/ do |field, article_title, article_field_name|
+  article = Article.find_by_title(article_title)
+  fill_in(field, :with => article[article_field_name])
 end
 
 When /^(?:|I )fill in "([^"]*)" with "([^"]*)"$/ do |field, value|

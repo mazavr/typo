@@ -417,13 +417,12 @@ class Article < Content
   end
 
   def merge_with(other_article_id)
-    article_to_merge_with = Article.find(other_article_id)
-    if article_to_merge_with != nil && self.id != article_to_merge_with.id
+    article_to_merge_with = Article.find_by_id(other_article_id)
+    if article_to_merge_with  && self.id != article_to_merge_with.id
       self.body += article_to_merge_with.body
-      article_to_merge_with.comments.each do |comment|
-        self.comments << comment
-      end
       self.save!
+      article_to_merge_with.comments.each { |comment| self.comments << comment }
+      article_to_merge_with.comments.reload
       article_to_merge_with.destroy
     end
   end
