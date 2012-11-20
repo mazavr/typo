@@ -114,8 +114,10 @@ class Admin::ContentController < Admin::BaseController
   end
 
   def merge_with
-    @article = Article.find(params[:id])
-    @article.merge_with params[:merge_with]
+    if current_user.admin?
+      @article = Article.find(params[:id])
+      @article.merge_with params[:merge_with]
+    end
     redirect_to :action => 'edit', :id => params[:id]
   end
 
